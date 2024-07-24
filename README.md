@@ -1,7 +1,7 @@
 
 Overview
 
-This script is a simple web scraping example using Python. It fetches the HTML content from awebsite and parses it using BeautifulSoup to enable further data extraction and analysis.
+This script is a simple web scraping example using Python. It fetches the HTML content from a website and parses it using BeautifulSoup to enable further data extraction and analysis.
 
 Requirements
 
