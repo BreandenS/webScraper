@@ -6,7 +6,7 @@ import time
 url = "https://www.bbc.com/news"
 
 response = requests.get(url)
-# print(response)
+print(response)
 
 soup = BeautifulSoup(response.text, "lxml")
-#print(soup)
+print(soup)
