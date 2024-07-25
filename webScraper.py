@@ -6,7 +6,13 @@ import time
 url = "https://www.bbc.com/news"
 
 response = requests.get(url)
-print(response)
 
 soup = BeautifulSoup(response.text, "lxml")
-print(soup)
+
+articles = soup.find_all("div", class_="app")
+
+headlines = soup.find_all("h2")
+
+for headline in headlines:
+    print(headline.text, "\n", end="\r")
+    time.sleep(1)
