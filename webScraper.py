@@ -1,18 +1,44 @@
 import requests
 from bs4 import BeautifulSoup
-import pandas as pd
 import time
 
-url = "https://www.bbc.com/news"
 
-response = requests.get(url)
+def fetch_and_display_headlines(url="https://www.bbc.com/news", delay=2):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.text, "lxml")
 
-soup = BeautifulSoup(response.text, "lxml")
+        headlines = soup.find_all("h2")
 
-articles = soup.find_all("div", class_="app")
+        for headline in headlines:
+            print(headline.text.strip(), "\n", end="\r")
+            time.sleep(delay)
+            
+            
 
-headlines = soup.find_all("h2")
+        return headlines
 
-for headline in headlines:
-    print(headline.text, "\n", end="\r")
-    time.sleep(1)
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching the URL: {e}")
+    return []
+
+
+def save_headlines(headlines):
+
+    file_name = "webscraper.txt"
+
+    with open(file_name, "a") as file:
+        for headline in headlines:
+            file.write(headline.text.strip() + "\n")
+
+
+def main():
+
+    headlines = fetch_and_display_headlines()
+    save_headlines(headlines)
+
+
+if __name__ == "__main__":
+
+    main()
